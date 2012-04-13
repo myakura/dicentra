@@ -4,9 +4,9 @@
     "description": "enhances WebKit changeset page.",
     "manifest_version": 2,
 
-    "content_scripts": {
-        "matches": [ "http://trac.webkit.org/*" ],
+    "content_scripts": [{
+        "matches": [ "http://trac.webkit.org/changeset/*" ],
         "js": ["content.js" ],
         "run_at": "document_end"
-    }
+    }]
 }
