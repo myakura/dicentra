@@ -1,0 +1,12 @@
+{
+    "name": "Dicentra",
+    "version": "0.1",
+    "description": "enhances WebKit changeset page.",
+    "manifest_version": 2,
+
+    "content_scripts": {
+        "matches": [ "http://trac.webkit.org/*" ],
+        "js": ["content.js" ],
+        "run_at": "document_end"
+    }
+}
