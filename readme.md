@@ -1,27 +1,16 @@
 Dicentra
 ========
 
-WebKitのChangesetを見ていると
+[WebKitのChangeset](http://trac.webkit.org/timeline)を見ていると
 
 * タイトルもうちょっとなんとかしてほしい
 * これどのバージョンに入るんだろう
 
 なんて思うことがよくある。
 
-というわけで、タイトルを読みやすくしたり、Changesetが反映される(された)であろうバージョンを表示するChrome拡張。
+というわけで、タイトルを読みやすくしたり、Changesetが反映される(された)であろうバージョンを表示するChrome拡張をつくろう。
 
-タイトル
---------
-
-"Changeset nnnnnn - WebKit" だけだと何が書いてあるのかわからない。せっかく細かいコミットメッセージがあるので、概要を取ってきてそれをタイトルに含めてやる。
-
-1. コミットメッセージの最初の`&lt;p>`を取得（`dd.message > p:first-child`）
-2. WebKit BugのURLより前のテキストを取得（`innerHTML`からregexでとる？）
-3. `document.title`とがっちゃんこ
-
-ときどきバグのURLが先行していたりするものもあるけれど、それはいいか。
-
-WebKitのバージョン
+メモ: WebKitのバージョン
 ------------------
 
 1. WebKitのChangesetからrevisionをとりだす
@@ -30,11 +19,11 @@ WebKitのバージョン
 
 ### Version.xcconfigの場所
 
-そういえばディレクトリの再構成があったんだった。
+そういえばディレクトリの構成が変わっていたんだった。
 
-[r75314](http://trac.webkit.org/changeset/75314)で移動してるので、それより前は`trunk/WebCore/Configurations/Version.xcconfig`を見ないといけない（今は`trunk/Source/WebCore/Configurations/`にある）。
+[r75314](http://trac.webkit.org/changeset/75314)で移動してるので、それより前は`trunk/WebCore/Configurations/`を見ないといけない（今は`trunk/Source/WebCore/Configurations/`にある）。
 
-Safari/Chromeのバージョン
+メモ: Safari/Chromeのバージョン
 -------------------------
 
 Feature flagsがあるので、必ずしもその機能が該当するバージョンに入るわけではないけれど、SafariとChromeのバージョンもどこかに表示させときたい。
@@ -44,4 +33,6 @@ Feature flagsがあるので、必ずしもその機能が該当するバージ�
 2. Changesetに該当するWebKitのバージョンと比較
 
 0をなんとかしないと。めんどくさいなあ……
+
+Safariについてはそんな数もないし、なんとかなるか。Chromeはソースコード探るようにすれば自動的にできるかな……
 
