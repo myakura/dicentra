@@ -3,12 +3,15 @@
         rechangeset = /^https?:\/\/trac\.webkit\.org\/changeset\/(\d+)$/;
 
     if (!rechangeset.test(url)) return;
-    var revision = url.match(rechangeset)[1];
+    var revision = parseInt(url.match(rechangeset)[1], 10);
+
+    // looks like r25325 is the oldest revision
+    if (revision < 25325) return;
 
     // path to Version.xcconfig
     var pathtoconf = 'http://trac.webkit.org/export/' + revision + '/trunk/' +
-                   (revision >= 75314 ? 'Source/' : '') +
-                   'WebCore/Configurations/Version.xcconfig';
+                     (revision >= 75314 ? 'Source/' : '') +
+                     'WebCore/Configurations/Version.xcconfig';
 
     var xhr = new XMLHttpRequest();
     xhr.onload = function () {
