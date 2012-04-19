@@ -1,7 +1,7 @@
 (function () {
-    var msgelem = document.querySelector('dd.message p'),
-        msgtext = msgelem.textContent,
-        reurls = /https?:\/\/bugs\.webkit\.org\/show_bug\.cgi\?id=\d+|<\s*(?:https?:\/\/webkit\.org\/b|rdar:\/\/problem)\/\d+>/g;
+    var msgElem = document.querySelector('dd.message p'),
+        msgText = msgElem.textContent,
+        reURLs = /https?:\/\/bugs\.webkit\.org\/show_bug\.cgi\?id=\d+|<\s*(?:https?:\/\/webkit\.org\/b|rdar:\/\/problem)\/\d+>/g;
 
         /*
         bugzilla : /https?:\/\/bugs\.webkit\.org\/show_bug\.cgi\?id=\d+/g,
@@ -11,13 +11,13 @@
         */
 
     // remove wk bug and rdar urls, then trim.
-    msgtext = msgtext.replace(reurls, '').trim();
+    msgText = msgText.replace(reURLs, '').trim();
 
     // if there are multiple "paragraphs" in the element, grab the first one
-    if (/\s+\n/.test(msgtext)) {
-        msgtext = msgtext.split(/\s+\n/)[0];
+    if (/\n\s*\n/.test(msgText)) {
+        msgText = msgText.split(/\n\s*\n/)[0];
     }
 
-    document.title += ' ― ' + msgtext.replace(/\n/,' ');
+    document.title += ' ― ' + msgText.replace(/\n/,' ');
 }());
 
