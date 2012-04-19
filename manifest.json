@@ -6,7 +6,7 @@
 
     "content_scripts": [{
         "matches": [ "http://trac.webkit.org/changeset/*" ],
-        "js": [ "content.js", "wkversion.js" ],
+        "js": [ "updateTitle.js", "wkversion.js" ],
         "run_at": "document_end"
     }]
 }
