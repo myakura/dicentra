@@ -1,33 +1,76 @@
 (function () {
-    var url = location.href,
-        reChangeset = /^https?:\/\/trac\.webkit\.org\/changeset\/(\d+)$/;
 
-    if (!reChangeset.test(url)) return;
-    var revision = parseInt(url.match(reChangeset)[1], 10);
+    var MyError = function (message) {
+        this.message = message;
+    }
+    MyError.prototype = new Error();
+    
+    var InvalidArgumentError = function (argument) {
+        this.message = 'Invalid argument(s) passed: ' + argument;
+    }
+    InvalidArgumentError.prototype = new Error();
 
-    // looks like r25325 is the oldest revision
-    if (revision < 25325) return;
-
-    // path to Version.xcconfig
-    var pathFile = 'http://trac.webkit.org/export/' + revision + '/trunk/' +
-                   (revision >= 75314 ? 'Source/' : '') +
-                   'WebCore/Configurations/Version.xcconfig';
-
-    var xhr = new XMLHttpRequest();
-    xhr.onload = function () {
-        showVersion(xhr.response);
-    };
-    xhr.open('GET', pathFile);
-    xhr.send();
-
-    function showVersion(response) {
-        var reVersions = /MAJOR_VERSION = (\d+);\nMINOR_VERSION = (\d+);/;
-
-        if (!reVersions.test(response)) return;
-        var version = response.match(reVersions).slice(1);
-
-        document.querySelector('h1').textContent += ' (' + version.join('.') + ')';
+    var getWKRevision = function (url) {
+        var regChangeset = /^https?:\/\/trac\.webkit\.org\/changeset\/(\d+)$/;
+        if (regChangeset.test(url)) {
+            return parseInt(regChangeset.exec(url).slice(1), 10);
+        } else {
+            throw new InvalidArgumentError(url);
+        }
     }
 
-}());
+    var getWKConfFilePath = function (revision) {
+        if (revision < 25325) {
+            throw new MyError('There was no conf file before r25325.');
+        }
 
+        // path to Version.xcconfig
+        return 'http://trac.webkit.org/export/' + revision +
+               (revision >= 75314 ? '/trunk/Source' : '/trunk') +
+               '/WebCore/Configurations/Version.xcconfig';
+    }
+
+    var getWKConfFile = function (url) {
+        if (!/\/WebCore\/Configurations\/Version\.xcconfig$/.test(url)) {
+            throw new InvalidArgumentError(url);
+        }
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', url);
+        xhr.onload = function () {
+            if (xhr.status === 200) {
+                var event = new CustomEvent('WKConfFileLoaded', { "detail": { "response": xhr.response } });
+                window.dispatchEvent(event);
+            } else {
+                throw new MyError('Something wrong happened during request.')
+            }
+        }
+        xhr.send();
+    }
+
+    var getWKVersion = function (data) {
+        var regVersions = /MAJOR_VERSION = (\d+);\nMINOR_VERSION = (\d+);/;
+        if (regVersions.test(data)) {
+            return regVersions.exec(data).slice(1);
+        } else {
+            throw new InvalidArgumentError(data);
+        }
+    }
+
+    var updateChangesetHeading = function (versionArray) {
+        if (Array.isArray(versionArray) && versionArray.length === 2) {
+            document.querySelector('h1').textContent += ' (' + versionArray.join('.') + ')';
+        } else {
+            throw new InvalidArgumentError(versionArray);
+        }
+    }
+
+    var url = location.href;
+    var rev = getWKRevision(url);
+    var path = getWKConfFilePath(rev);
+    window.addEventListener('WKConfFileLoaded', function (e) {
+        var version = getWKVersion(e.detail.response);
+        updateChangesetHeading(version);
+    });
+    getWKConfFile(path);
+
+}());
