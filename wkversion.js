@@ -24,7 +24,6 @@
             throw new MyError('There was no conf file before r25325.');
         }
 
-        // path to Version.xcconfig
         return 'http://trac.webkit.org/export/' + revision +
                (revision >= 75314 ? '/trunk/Source' : '/trunk') +
                '/WebCore/Configurations/Version.xcconfig';
@@ -50,7 +49,9 @@
     var getWKVersion = function (data) {
         var regVersions = /MAJOR_VERSION = (\d+);\nMINOR_VERSION = (\d+);/;
         if (regVersions.test(data)) {
-            return regVersions.exec(data).slice(1);
+            var version = regVersions.exec(data).slice(1);
+            var event = new CustomEvent('WKVersionObtained', { "detail": { "version": version }});
+            window.dispatchEvent(event);
         } else {
             throw new InvalidArgumentError(data);
         }
@@ -68,7 +69,10 @@
     var rev = getWKRevision(url);
     var path = getWKConfFilePath(rev);
     window.addEventListener('WKConfFileLoaded', function (e) {
-        var version = getWKVersion(e.detail.response);
+        getWKVersion(e.detail.response);
+    });
+    window.addEventListener('WKVersionObtained', function (e) {
+        var version = e.detail.version;
         updateChangesetHeading(version);
     });
     getWKConfFile(path);
