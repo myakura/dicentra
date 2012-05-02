@@ -1,18 +1,29 @@
 (function () {
 
+    /**
+     * Obtains WebKit revision number from the changeset URL.
+     * @param {string} url Mandatory URL of a WebKit changeset.
+     * @return {number} revision number
+     */
     var getWebKitRevision = function (url) {
         var regChangeset = /^https?:\/\/trac\.webkit\.org\/changeset\/(\d+)$/;
         if (regChangeset.test(url)) {
             return parseInt(regChangeset.exec(url).slice(1), 10);
         } else {
             console.error('Invalid argument: ', url);
+            return;
         }
     };
 
+    /**
+     * Obtains WebKit version number from the revision number.
+     * @param {number} revision Mandatory revision number of a WebKit changeset.
+     * @return {Array.<string>} an array of strings made by MAJOR_VERSION and MINOR_VERSION
+     */
     var getWebKitVersion = function (revision) {
 
-        if (revision < 25325) {
-            console.error('There was no conf file before r25325.');
+        if (revision < 20261) {
+            console.error('There was no conf file before r20261.');
             return;
         }
 
@@ -25,10 +36,10 @@
 
         xhr.onload = function () {
             if (xhr.status === 200) {
-                var data = xhr.response;
-                var regVersions = /MAJOR_VERSION = (\d+);\nMINOR_VERSION = (\d+);/;
+                var data = xhr.response,
+                    regVersions = /MAJOR_VERSION = (\d{3});\nMINOR_VERSION = (\d{1,2});/;
                 if (regVersions.test(data)) {
-                    var version = regVersions.exec(data).slice(1);
+                    var version = regVersions.exec(data).slice(1).join('.');
                     var ev = new CustomEvent('WKVersionObtained', { "detail": { "version": version }});
                     window.dispatchEvent(ev);
                 } else {
@@ -44,14 +55,16 @@
         xhr.send();
     };
 
-    var updateChangesetHeading = function (versionArray) {
-        if (Array.isArray(versionArray) && versionArray.length === 2) {
-            document.querySelector('h1').textContent += ' (' + versionArray.join('.') + ')';
-        } else {
-            console.error('Invalid argument: ', versionArray);
-        }
+    /**
+     * Adds corresponding WebKit version to the changeset heading.
+     * @param {string} version WebKit version string
+     */
+    var updateChangesetHeading = function (version) {
+        document.querySelector('h1').textContent += ' (' + version + ')';
     };
 
+
+    /* init */
     var url = location.href,
         rev = getWebKitRevision(url);
 
