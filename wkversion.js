@@ -6,6 +6,7 @@
      * @return {number} revision number
      */
     var getWebKitRevision = function (url) {
+
         var regChangeset = /^https?:\/\/trac\.webkit\.org\/changeset\/(\d+)$/;
         if (regChangeset.test(url)) {
             return parseInt(regChangeset.exec(url).slice(1), 10);
@@ -83,6 +84,9 @@
      * @return {string} the Safari version number in which feature might be available with the associated WebKit Version
      */
     var findSafariVersion = function (version) {
+
+        version = canonicalizeWebKitVersion(version);
+
         var safari = [
             { "product": "5.1", "webkit" : "534.55.3" },
             { "product": "5.0", "webkit" : "534.22.3" },
@@ -90,7 +94,7 @@
             { "product": "4.0", "webkit" : "531.22.7" },
             { "product": "3.2", "webkit" : "525.28" },
             { "product": "3.1", "webkit" : "525.21" },
-            { "product": "3.0", "webkit" : "523.10" },
+            { "product": "3.0", "webkit" : "523.10" }
         ];
         var i = 0,
             l = safari.length,
@@ -114,8 +118,7 @@
      * @param {string} version WebKit version string
      */
     var updateChangesetHeading = function (version) {
-        var canoVersion = canonicalizeWebKitVersion(version);
-        var safariVersion = findSafariVersion(canoVersion);
+        var safariVersion = findSafariVersion(version);
         document.querySelector('h1').textContent += ' (' + version + ' / Safari ' + safariVersion + ')';
     };
 
