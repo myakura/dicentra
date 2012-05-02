@@ -56,11 +56,67 @@
     };
 
     /**
+     * Canonicalizes the version string by zero-padding for making it easier in comparison.
+     * @param {(Array.<string>|string)} version WebKit Version string
+     * @return {string} canonicalized version string; zero-pads if necessary
+     */
+    var canonicalizeWebKitVersion = function (version) {
+
+        if (Array.isArray(version) && version.length >= 2) {
+            version = version.join('.');
+        }
+
+        var regVersion = /^(\d{3})\.(\d{1,2})\.?\d*$/;
+        if (typeof version === 'string' && regVersion.test(version)) {
+            return version.replace(regVersion, function(m, p1, p2) {
+                return p1 + '.' + (p2.length === 2 ? p2 : '0' + p2);
+            });
+        } else {
+            console.error('Invalid argument: ', version);
+            return;
+        }
+    };
+
+    /**
+     * Returns the Safari version number in which feature might be available with the associated WebKit Version
+     * @param {string} version canonicalized version string
+     * @return {string} the Safari version number in which feature might be available with the associated WebKit Version
+     */
+    var findSafariVersion = function (version) {
+        var safari = [
+            { "product": "5.1", "webkit" : "534.55.3" },
+            { "product": "5.0", "webkit" : "534.22.3" },
+            { "product": "4.1", "webkit" : "533.19.4" },
+            { "product": "4.0", "webkit" : "531.22.7" },
+            { "product": "3.2", "webkit" : "525.28" },
+            { "product": "3.1", "webkit" : "525.21" },
+            { "product": "3.0", "webkit" : "523.10" },
+        ];
+        var i = 0,
+            l = safari.length,
+            candidate;
+
+        if (version > safari[0].webkit) { return 'Nightly'; }
+        if (version < safari[l-1].webkit) { return ''; }
+
+        while (i < l) {
+            if (version <= safari[i].webkit) {
+                candidate = i;
+            } else {
+                return safari[candidate].product;
+            }
+            i++;
+        }
+    };
+
+    /**
      * Adds corresponding WebKit version to the changeset heading.
      * @param {string} version WebKit version string
      */
     var updateChangesetHeading = function (version) {
-        document.querySelector('h1').textContent += ' (' + version + ')';
+        var canoVersion = canonicalizeWebKitVersion(version);
+        var safariVersion = findSafariVersion(canoVersion);
+        document.querySelector('h1').textContent += ' (' + version + ' / Safari ' + safariVersion + ')';
     };
 
 
