@@ -144,12 +144,12 @@
 
         var chrome = [
             { "product": "20", "branch": "1123", "webkit": "536.10" },
-            { "product": "19", "branch": "1084", "webkit": "536.5" },
+            { "product": "19", "branch": "1084", "webkit": "536.05" },
             { "product": "18", "branch": "1025", "webkit": "535.19" },
             { "product": "17", "branch": "963",  "webkit": "535.11" },
-            { "product": "16", "branch": "912",  "webkit": "535.7" },
-            { "product": "15", "branch": "874",  "webkit": "535.2" },
-            { "product": "13/14", "branch": "835",  "webkit": "535.1" },
+            { "product": "16", "branch": "912",  "webkit": "535.07" },
+            { "product": "15", "branch": "874",  "webkit": "535.02" },
+            { "product": "13/14", "branch": "835",  "webkit": "535.01" },
             /* TODO: find a way to differentiate Cr13 and Cr14
             { "product": "14", "branch": "835",  "webkit": "535.1" },
             { "product": "13", "branch": "782",  "webkit": "535.1" },
@@ -159,12 +159,12 @@
             { "product": "10", "branch": "648",  "webkit": "534.16" },
             { "product": "9",  "branch": "597",  "webkit": "534.13" },
             { "product": "8",  "branch": "552",  "webkit": "534.10" },
-            { "product": "7",  "branch": "517",  "webkit": "534.7" },
-            { "product": "6",  "branch": "472",  "webkit": "534.3" },
-            { "product": "5",  "branch": "375",  "webkit": "533.4" },
-            { "product": "4",  "branch": "249",  "webkit": "532.5" },
-            { "product": "3",  "branch": "195",  "webkit": "532.0" },
-            { "product": "2",  "branch": "172",  "webkit": "530.5" },
+            { "product": "7",  "branch": "517",  "webkit": "534.07" },
+            { "product": "6",  "branch": "472",  "webkit": "534.03" },
+            { "product": "5",  "branch": "375",  "webkit": "533.04" },
+            { "product": "4",  "branch": "249",  "webkit": "532.05" },
+            { "product": "3",  "branch": "195",  "webkit": "532.00" },
+            { "product": "2",  "branch": "172",  "webkit": "530.05" },
             { "product": "1",  "branch": "154",  "webkit": "525.19" },
         ];
 
