@@ -1,13 +1,34 @@
 (function () {
 
     /**
+     * A helper function for XHR
+     * @param {string} url a URL to GET
+     * @param {function(string, Object=)} callback invoked when a request succeeds
+     * @param {Object=} annexure data which can be passed to the {@code callback}
+     */
+    var request = function (url, callback, annexure) {
+
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', url);
+        xhr.onload = function () {
+            if (xhr.status === 200) {
+                callback(xhr.response, annexure);
+            } else {
+                console.error('Request failed.');
+            }
+        }
+        xhr.send();
+    };
+
+    /**
      * Obtains WebKit revision number from the changeset URL.
-     * @param {string} url Mandatory URL of a WebKit changeset.
-     * @return {number} revision number
+     * @param {string} url URL of a WebKit changeset.
+     * @return {number} revision a WebKit revision number
      */
     var getWebKitRevision = function (url) {
 
         var regChangeset = /^https?:\/\/trac\.webkit\.org\/changeset\/(\d+)$/;
+
         if (regChangeset.test(url)) {
             return parseInt(regChangeset.exec(url).slice(1), 10);
         } else {
@@ -18,48 +39,42 @@
 
     /**
      * Obtains WebKit version number from the revision number.
-     * @param {number} revision Mandatory revision number of a WebKit changeset.
+     * @param {(number|string)} revision revision number of a WebKit changeset.
      * @return {Array.<string>} an array of strings made by MAJOR_VERSION and MINOR_VERSION
      */
     var getWebKitVersion = function (revision) {
 
-        if (revision < 20261) {
+        var rev = parseInt(revision, 10);
+
+        if (rev < 20261) {
             console.error('There was no conf file before r20261.');
             return;
         }
 
-        var url = 'http://trac.webkit.org/export/' + revision +
-                  (revision >= 75314 ? '/trunk/Source' : '/trunk') +
+        var url = 'http://trac.webkit.org/export/' + rev +
+                  (rev >= 75314 ? '/trunk/Source' : '/trunk') +
                   '/WebCore/Configurations/Version.xcconfig';
 
-        var xhr = new XMLHttpRequest();
-        xhr.open('GET', url);
+        var extractWKVersion = function (response) {
+            var data = response,
+                regVersions = /MAJOR_VERSION = (\d{3});\nMINOR_VERSION = (\d{1,2});/;
 
-        xhr.onload = function () {
-            if (xhr.status === 200) {
-                var data = xhr.response,
-                    regVersions = /MAJOR_VERSION = (\d{3});\nMINOR_VERSION = (\d{1,2});/;
-                if (regVersions.test(data)) {
-                    var version = regVersions.exec(data).slice(1).join('.');
-                    var ev = new CustomEvent('WKVersionObtained', { "detail": { "version": version }});
-                    window.dispatchEvent(ev);
-                } else {
-                    console.error('Cannot obtain version from file.');
-                    return;
-                }
+            if (regVersions.test(data)) {
+                var version = regVersions.exec(data).slice(1).join('.');
+                var ev = new CustomEvent('WKVersionObtained', { "detail": { "version": version }});
+                window.dispatchEvent(ev);
             } else {
-                console.error('Something gone wrong during request.');
-                return;
+                console.error('Cannot obtain version from the data.');
             }
         };
 
-        xhr.send();
+        request(url, extractWKVersion);
     };
 
     /**
      * Canonicalizes the version string by zero-padding for making it easier in comparison.
      * @param {(Array.<string>|string)} version WebKit version string
-     * @return {string} canonicalized version string; zero-pads if necessary
+     * @return {string} canonicalized version string (zero-padded)
      */
     var canonicalizeWebKitVersion = function (version) {
 
@@ -80,7 +95,7 @@
 
     /**
      * Returns the earliest version of a browser that (might) support the feature on the changeset
-     * @param {browser} browser an array contains objects of product and webkit version numbers
+     * @param {Array.<Object>} browser an array contains objects of product and webkit version numbers
      * @param {string} version WebKit version string
      * @return {string} a browser version number
      */
@@ -178,7 +193,8 @@
     var updateChangesetHeading = function (version) {
         var safariVersion = findSafariVersion(version);
         var chromeVersion = findChromeVersion(version);
-        document.querySelector('h1').textContent += ' (' + version + ' | Safari ' + safariVersion + ' | Chrome ' + chromeVersion + ')';
+        document.querySelector('h1').textContent +=
+            ' (' + version + ' | Safari ' + safariVersion + ' | Chrome ' + chromeVersion + ')';
     };
 
 
