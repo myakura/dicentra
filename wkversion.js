@@ -138,7 +138,7 @@
     var findSafariVersion = function (version) {
 
         var safari = [
-            { "product": "5.1", "webkit": "534.55.3" },
+            { "product": "5.1", "webkit": "534.57.2" },
             { "product": "5.0", "webkit": "534.22.3" },
             { "product": "4.1", "webkit": "533.19.4" },
             { "product": "4.0", "webkit": "531.22.7" },
@@ -158,7 +158,8 @@
     var findChromeVersion = function (version) {
 
         var chrome = [
-            { "product": "20", "branch": "1123", "webkit": "536.10" },
+            { "product": "21", "branch": "1142", "webkit": "537.01" },
+            { "product": "20", "branch": "1132", "webkit": "536.11" },
             { "product": "19", "branch": "1084", "webkit": "536.05" },
             { "product": "18", "branch": "1025", "webkit": "535.19" },
             { "product": "17", "branch": "963",  "webkit": "535.11" },
