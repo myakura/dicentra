@@ -5,7 +5,7 @@
 
         /*
         bugzilla : /https?:\/\/bugs\.webkit\.org\/show_bug\.cgi\?id=\d+/g,
-        shortered: /<\s*https?:\/webkit\.org\/b\/\d+>/g;
+        shortened: /<\s*https?:\/webkit\.org\/b\/\d+>/g;
         rdar url : /<\s*rdar:\/\/problem\/\d+>/g,
         // might need ones for wkb.ug and wkbug.com someday.
         */

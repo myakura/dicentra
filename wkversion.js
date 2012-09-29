@@ -1,7 +1,7 @@
 (function () {
 
     /**
-     * A helper function for XHR
+     * Helper function for XHR
      * @param {string} url a URL to GET
      * @param {function(string, Object=)} callback invoked when a request succeeds
      * @param {Object=} annexure data which can be passed to the {@code callback}
@@ -21,7 +21,7 @@
     };
 
     /**
-     * Obtains WebKit revision number from the changeset URL.
+     * Obtains WebKit revision number from changeset URL.
      * @param {string} url URL of a WebKit changeset.
      * @return {number} revision a WebKit revision number
      */
@@ -38,7 +38,7 @@
     };
 
     /**
-     * Obtains WebKit version number from the revision number.
+     * Obtains WebKit version number from revision number.
      * @param {(number|string)} revision revision number of a WebKit changeset.
      * @return {Array.<string>} an array of strings made by MAJOR_VERSION and MINOR_VERSION
      */
@@ -138,7 +138,8 @@
     var findSafariVersion = function (version) {
 
         var safari = [
-            { "product": "5.1", "webkit": "534.57.2" },
+            { "product": "6.0", "webkit": "536.25" },
+            { "product": "5.1", "webkit": "534.48.3" },
             { "product": "5.0", "webkit": "534.22.3" },
             { "product": "4.1", "webkit": "533.19.4" },
             { "product": "4.0", "webkit": "531.22.7" },
@@ -158,7 +159,9 @@
     var findChromeVersion = function (version) {
 
         var chrome = [
-            { "product": "21", "branch": "1142", "webkit": "537.01" },
+            { "product": "23", "branch": "1271", "webkit": "537.11" },
+            { "product": "22", "branch": "1229", "webkit": "537.04" },
+            { "product": "21", "branch": "1180", "webkit": "537.01" },
             { "product": "20", "branch": "1132", "webkit": "536.11" },
             { "product": "19", "branch": "1084", "webkit": "536.05" },
             { "product": "18", "branch": "1025", "webkit": "535.19" },
@@ -166,10 +169,6 @@
             { "product": "16", "branch": "912",  "webkit": "535.07" },
             { "product": "15", "branch": "874",  "webkit": "535.02" },
             { "product": "13/14", "branch": "835",  "webkit": "535.01" },
-            /* TODO: find a way to differentiate Cr13 and Cr14
-            { "product": "14", "branch": "835",  "webkit": "535.1" },
-            { "product": "13", "branch": "782",  "webkit": "535.1" },
-            */
             { "product": "12", "branch": "742",  "webkit": "534.30" },
             { "product": "11", "branch": "696",  "webkit": "534.24" },
             { "product": "10", "branch": "648",  "webkit": "534.16" },
@@ -183,6 +182,10 @@
             { "product": "2",  "branch": "172",  "webkit": "530.05" },
             { "product": "1",  "branch": "154",  "webkit": "525.19" },
         ];
+            /* TODO: find a way to distinguish Cr13 and Cr14
+            { "product": "14", "branch": "835",  "webkit": "535.1" },
+            { "product": "13", "branch": "782",  "webkit": "535.1" },
+            */
 
         return findBrowserVersion(chrome, version);
     };
