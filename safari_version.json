@@ -1,0 +1,46 @@
+[
+    { "product": "6.0.1", "webkit": "536.26.14" },
+    { "product": "6.0", "webkit": "536.25" },
+
+    { "product": "5.1.7", "webkit": "534.57.2" },
+    { "product": "5.1.6", "webkit": "534.56.5" },
+    { "product": "5.1.5", "webkit": "534.55.3" },
+    { "product": "5.1.4", "webkit": "534.54.16" },
+    { "product": "5.1.3", "webkit": "534.53.10" },
+    { "product": "5.1.2", "webkit": "534.52.7" },
+    { "product": "5.1.1", "webkit": "534.51.22" },
+    { "product": "5.1",   "webkit": "534.48.3" },
+
+    { "product": "5.0.6", "webkit": "534.22.3" },
+    { "product": "5.0.5", "webkit": "533.21.1" },
+    { "product": "5.0.4", "webkit": "533.20.27" },
+    { "product": "5.0.3", "webkit": "533.19.4" },
+    { "product": "5.0.2", "webkit": "533.18.5" },
+    { "product": "5.0.1", "webkit": "533.17.8" },
+    { "product": "5.0",   "webkit": "533.16" },
+
+    { "product": "4.1.3", "webkit": "533.19.4" },
+    { "product": "4.1.2", "webkit": "533.18.5" },
+    { "product": "4.1.1", "webkit": "533.17.8" },
+    { "product": "4.1",   "webkit": "533.16" },
+
+    { "product": "4.0.5", "webkit": "531.22.7" },
+    { "product": "4.0.4", "webkit": "531.21.10" },
+    { "product": "4.0.3", "webkit": "531.9" },
+    { "product": "4.0.2", "webkit": "530.19" },
+    { "product": "4.0.1", "webkit": "530.18" },
+    { "product": "4.0",   "webkit": "530.17" },
+
+    { "product": "3.2.3", "webkit": "525.28" },
+    { "product": "3.2.1", "webkit": "525.27" },
+    { "product": "3.2",   "webkit": "525.26" },
+
+    { "product": "3.1.2", "webkit": "525.21" },
+    { "product": "3.1.1", "webkit": "525.20" },
+    { "product": "3.1",   "webkit": "525.13" },
+
+    { "product": "3.0.4", "webkit": "523.10" },
+    { "product": "3.0.3", "webkit": "522.12.1" },
+    { "product": "3.0.2", "webkit": "522.12" },
+    { "product": "3.0",   "webkit": "522.11" }
+]
