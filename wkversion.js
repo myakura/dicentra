@@ -159,6 +159,7 @@
     var findChromeVersion = function (version) {
 
         var chrome = [
+            { "product": "24", "branch": "1312", "webkit": "537.17" },
             { "product": "23", "branch": "1271", "webkit": "537.11" },
             { "product": "22", "branch": "1229", "webkit": "537.04" },
             { "product": "21", "branch": "1180", "webkit": "537.01" },
