@@ -85,7 +85,7 @@
         var regVersion = /^(\d{3})\.(\d{1,2})\.?\d*$/;
         if (typeof version === 'string' && regVersion.test(version)) {
             return version.replace(regVersion, function(m, p1, p2) {
-                return p1 + '.' + (p2.length === 2 ? p2 : '0' + p2);
+                return p1 + '.' + ('0' + p2).slice(-2);
             });
         } else {
             console.error('Invalid argument: ', version);
