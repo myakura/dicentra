@@ -159,6 +159,7 @@
     var findChromeVersion = function (version) {
 
         var chrome = [
+            { "product": "27", "branch": "1453", "webkit": "537.36" },
             { "product": "26", "branch": "1410", "webkit": "537.31" },
             { "product": "25", "branch": "1364", "webkit": "537.22" },
             { "product": "24", "branch": "1312", "webkit": "537.17" },
@@ -201,7 +202,7 @@
         var safariVersion = findSafariVersion(version);
         var chromeVersion = findChromeVersion(version);
         document.querySelector('h1').textContent +=
-            ' (' + version + ' | Safari ' + safariVersion + ' | Chrome ' + chromeVersion + ')';
+            ' (' + version + ' | Safari ' + safariVersion + ((chromeVersion !== 'Nightly') ? ' | Chrome ' + chromeVersion : '') + ')';
     };
 
 
