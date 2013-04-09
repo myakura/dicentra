@@ -1,6 +1,8 @@
 [
-    { "product": "26", "branch": "1410", "webkit": "537.31",
+    { "product": "27", "branch": "1453", "webkit": "537.36",
         "blogpost": "" },
+    { "product": "26", "branch": "1410", "webkit": "537.31",
+        "blogpost": "http://googlechromereleases.blogspot.jp/2013/03/stable-channel-update_26.html" },
     { "product": "25", "branch": "1364", "webkit": "537.22",
         "blogpost": "http://googlechromereleases.blogspot.com/2013/02/stable-channel-update_21.html" },
     { "product": "24", "branch": "1312", "webkit": "537.17",
