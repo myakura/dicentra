@@ -1,4 +1,8 @@
 [
+    { "product": "7.0",   "webkit": "537.71" },
+
+    { "product": "6.0.5", "webkit": "536.30.1" },
+    { "product": "6.0.4", "webkit": "536.29.13" },
     { "product": "6.0.3", "webkit": "536.28.10" },
     { "product": "6.0.2", "webkit": "536.26.17" },
     { "product": "6.0.1", "webkit": "536.26.14" },
