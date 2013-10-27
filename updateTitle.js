@@ -1,6 +1,5 @@
 (function () {
-    var msgElem = document.querySelector('dd.message p'),
-        msgText = msgElem.textContent,
+    var msgText = document.querySelector('dd.message p').textContent,
         reURLs = /https?:\/\/bugs\.webkit\.org\/show_bug\.cgi\?id=\d+|<\s*(?:https?:\/\/webkit\.org\/b|rdar:\/\/problem)\/\d+>/g;
 
         /*
