@@ -26,26 +26,25 @@
   /**
    * Get WebKit version string from an HTTP response
    * @param {string} url URL of the changeset
+   * @return {string} url for Version.xcconfig at a given revision
    */
   var getConfigURL = function (url) {
-    return new Promise(function (resolve, reject) {
-      var reChangeset = /^https?:\/\/trac\.webkit\.org\/changeset\/(\d+)$/;
-        if (reChangeset.test(url)) {
-          var revision = parseInt(reChangeset.exec(url).slice(1));
-          if (revision >= 20261) {
-            resolve('http://trac.webkit.org/export/' + revision +
-                    (revision >= 75314 ? '/trunk/Source' : '/trunk') +
-                    '/WebCore/Configurations/Version.xcconfig');
-          }
-          else {
-            reject(new Error('No Version.xcconfig before r20261.'));
-          }
-        }
-        else {
-          reject(new Error('Invalid URL.'));
-        }
-    });
-  }
+    var reChangeset = /^https?:\/\/trac\.webkit\.org\/changeset\/(\d+)$/;
+    if (reChangeset.test(url)) {
+      var revision = parseInt(reChangeset.exec(url).slice(1));
+      if (revision >= 20261) {
+        return 'http://trac.webkit.org/export/' + revision +
+               (revision >= 75314 ? '/trunk/Source' : '/trunk') +
+               '/WebCore/Configurations/Version.xcconfig';
+      }
+      else {
+        return new Error('No Version.xcconfig before r20261.');
+      }
+    }
+    else {
+      return new Error('Invalid URL.');
+    }
+  };
 
   /**
    * Get WebKit version string from an HTTP response
@@ -169,8 +168,7 @@
 
   // kick off
   (function () {
-    getConfigURL(location.href)
-      .then(httpget)
+    httpget(getConfigURL(location.href))
       .then(getWebKitVersion)
       .then(function (version) {
         updatePage(version);
