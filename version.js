@@ -15,13 +15,13 @@
         else {
           reject(new Error(xhr.status));
         }
-      }
+      };
       xhr.onerror = function () {
         reject(new Error(xhr.status));
-      }
+      };
       xhr.send();
     });
-  }
+  };
 
   /**
    * Get WebKit version string from an HTTP response
@@ -73,7 +73,7 @@
     var safariVersion = findSafariVersion(version);
     var chromeVersion = findChromeVersion(version);
     document.querySelector('h1').textContent += ' (' + version + ' | Safari ' + safariVersion + ((chromeVersion !== 'Nightly') ? ' | Chrome ' + chromeVersion : '') + ')';
-  }
+  };
 
   /**
    * Returns the earliest version of a browser that (might) support the feature on the changeset
