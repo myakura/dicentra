@@ -33,7 +33,7 @@
     if (reChangeset.test(url)) {
       var revision = parseInt(reChangeset.exec(url).slice(1));
       if (revision >= 20261) {
-        return 'http://trac.webkit.org/export/' + revision +
+        return location.protocol + '//trac.webkit.org/export/' + revision +
                (revision >= 75314 ? '/trunk/Source' : '/trunk') +
                '/WebCore/Configurations/Version.xcconfig';
       }
