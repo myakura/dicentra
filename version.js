@@ -51,18 +51,16 @@
    * @param {string} response HTTP response from Version.xcconfig
    */
   var getWebKitVersion = function (response) {
-    return new Promise(function (resolve, reject) {
-      var reVersions = /MAJOR_VERSION = (\d{3});\nMINOR_VERSION = (\d{1,2});/;
-      if (reVersions.test(response)) {
-        var version = reVersions.exec(response).slice(1).join('.')
-          .replace(/(\d{3})\.(\d{1,2})/, function(m, p1, p2) {
-            return p1 + '.' + ('0' + p2).slice(-2);
-          });
-        resolve(version);
-      } else {
-        reject(new Error('Cannot obtain version from the response.'));
-      }
-    });
+    var reVersions = /MAJOR_VERSION = (\d{3});\nMINOR_VERSION = (\d{1,2});/;
+    if (reVersions.test(response)) {
+      var version = reVersions.exec(response).slice(1).join('.')
+        .replace(/(\d{3})\.(\d{1,2})/, function(m, p1, p2) {
+          return p1 + '.' + ('0' + p2).slice(-2);
+        });
+      return version;
+    } else {
+      return new Error('Cannot obtain version from the response.');
+    }
   };
 
   /**
