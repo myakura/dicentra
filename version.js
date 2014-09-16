@@ -170,12 +170,8 @@
   (function () {
     httpget(getConfigURL(location.href))
       .then(getWebKitVersion)
-      .then(function (version) {
-        updatePage(version);
-      })
-      .catch(function(error) {
-        console.error(error);
-      })
+      .then(updatePage)
+      .catch(console.error)
   }());
 
 }());
