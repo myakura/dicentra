@@ -110,6 +110,7 @@
    */
   var findSafariVersion = function (version) {
     var safari = [
+      { "product": "8.0", "webkit": "600.01" },
       { "product": "7.0", "webkit": "537.71" },
       { "product": "6.0", "webkit": "536.25" },
       { "product": "5.1", "webkit": "534.48.3" },
