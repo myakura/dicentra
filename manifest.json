@@ -1,11 +1,11 @@
 {
-    "name": "Dicentra",
-    "version": "0.8.3",
-    "description": "enhances WebKit changeset page.",
-    "manifest_version": 2,
+  "name": "Dicentra",
+  "version": "0.8.4",
+  "description": "enhances WebKit changeset page.",
+  "manifest_version": 2,
 
-    "content_scripts": [{
-        "matches": [ "*://trac.webkit.org/changeset/*" ],
-        "js": [ "title.js", "version.js" ]
-    }]
+  "content_scripts": [{
+    "matches": [ "*://trac.webkit.org/changeset/*" ],
+    "js": [ "dicentra_title.js", "dicentra_version.js" ]
+  }]
 }

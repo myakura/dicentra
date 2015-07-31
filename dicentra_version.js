@@ -6,22 +6,22 @@
    */
   var httpget = function (url) {
     return new Promise(function (resolve, reject) {
-      var xhr = new XMLHttpRequest();
-      xhr.open('GET', url);
+      var xhr = new XMLHttpRequest()
+      xhr.open('GET', url)
       xhr.onload = function () {
         if (xhr.status === 200) {
-          resolve(xhr.response);
+          resolve(xhr.response)
         }
         else {
-          reject(new Error(xhr.status));
+          reject(new Error(xhr.status))
         }
-      };
+      }
       xhr.onerror = function () {
-        reject(new Error(xhr.status));
-      };
-      xhr.send();
-    });
-  };
+        reject(new Error(xhr.status))
+      }
+      xhr.send()
+    })
+  }
 
   /**
    * Get WebKit version string from an HTTP response
@@ -29,20 +29,20 @@
    * @return {string} url for Version.xcconfig at a given revision
    */
   var getConfigURL = function (url) {
-    var reChangeset = /^https?:\/\/trac\.webkit\.org\/changeset\/(\d+)$/;
+    var reChangeset = /^https?:\/\/trac\.webkit\.org\/changeset\/(\d+)$/
     if (reChangeset.test(url)) {
-      var revision = parseInt(reChangeset.exec(url).slice(1));
+      var revision = parseInt(reChangeset.exec(url).slice(1))
       if (revision >= 20261) {
         return location.protocol + '//trac.webkit.org/export/' + revision +
                (revision >= 75314 ? '/trunk/Source' : '/trunk') +
-               '/WebCore/Configurations/Version.xcconfig';
+               '/WebCore/Configurations/Version.xcconfig'
       }
       else {
-        return new Error('No Version.xcconfig before r20261.');
+        return new Error('No Version.xcconfig before r20261.')
       }
     }
     else {
-      return new Error('Invalid URL.');
+      return new Error('Invalid URL.')
     }
   };
 
@@ -51,27 +51,27 @@
    * @param {string} response HTTP response from Version.xcconfig
    */
   var getWebKitVersion = function (response) {
-    var reVersions = /MAJOR_VERSION = (\d{3});\nMINOR_VERSION = (\d{1,2});/;
+    var reVersions = /MAJOR_VERSION = (\d{3});\nMINOR_VERSION = (\d{1,2});/
     if (reVersions.test(response)) {
       var version = reVersions.exec(response).slice(1).join('.')
         .replace(/(\d{3})\.(\d{1,2})/, function(m, p1, p2) {
-          return p1 + '.' + ('0' + p2).slice(-2);
-        });
-      return version;
+          return p1 + '.' + ('0' + p2).slice(-2)
+        })
+      return version
     } else {
-      return new Error('Cannot obtain version from the response.');
+      return new Error('Cannot obtain version from the response.')
     }
-  };
+  }
 
   /**
    * Update the heading of the changest
    * @param {string} version WebKit version string
    */
   var updatePage = function (version) {
-    var safariVersion = findSafariVersion(version);
-    var chromeVersion = findChromeVersion(version);
-    document.querySelector('h1').textContent += ' (' + version + ' | Safari ' + safariVersion + ((chromeVersion !== 'Nightly') ? ' | Chrome ' + chromeVersion : '') + ')';
-  };
+    var safariVersion = findSafariVersion(version)
+    var chromeVersion = findChromeVersion(version)
+    document.querySelector('h1').textContent += ' (' + version + ' | Safari ' + safariVersion + ((chromeVersion !== 'Nightly') ? ' | Chrome ' + chromeVersion : '') + ')'
+  }
 
   /**
    * Returns the earliest version of a browser that (might) support the feature on the changeset
@@ -81,27 +81,27 @@
    */
   var findBrowserVersion = function (browser, version) {
     if (!Array.isArray(browser) || browser.length === 0) {
-      console.error('Invalid argument: ', browser);
-      return;
+      console.error('Invalid argument: ', browser)
+      return
     }
     if (!('product' in browser[0]) || !('webkit' in browser[0])) {
-      console.error('Invalid argument: ', browser[0]);
-      return;
+      console.error('Invalid argument: ', browser[0])
+      return
     }
     var i = 0,
         l = browser.length,
-        candidate;
-    if (version > browser[0].webkit) { return 'Nightly'; }
-    if (version < browser[l-1].webkit) { return ''; }
+        candidate
+    if (version > browser[0].webkit) { return 'Nightly' }
+    if (version < browser[l-1].webkit) { return '' }
     while (i < l) {
       if (version <= browser[i].webkit) {
-        candidate = i;
+        candidate = i
       } else {
-        return browser[candidate].product;
+        return browser[candidate].product
       }
-      i++;
+      i++
     }
-  };
+  }
 
   /**
    * Returns the earliest Safari version that (might) support the feature on the changeset
@@ -120,9 +120,9 @@
       { "product": "3.2", "webkit": "525.28" },
       { "product": "3.1", "webkit": "525.21" },
       { "product": "3.0", "webkit": "523.10" }
-    ];
-    return findBrowserVersion(safari, version);
-  };
+    ]
+    return findBrowserVersion(safari, version)
+  }
 
   /**
    * Returns the earliest Chrome version that (might) support the feature on the changeset
@@ -157,13 +157,13 @@
       { "product": "3",  "branch": "195",  "webkit": "532.00" },
       { "product": "2",  "branch": "172",  "webkit": "530.05" },
       { "product": "1",  "branch": "154",  "webkit": "525.19" },
-    ];
+    ]
       /* ISSUE: no way to distinguish Cr13 and Cr14
       { "product": "14", "branch": "835",  "webkit": "535.1" },
       { "product": "13", "branch": "782",  "webkit": "535.1" },
       */
-    return findBrowserVersion(chrome, version);
-  };
+    return findBrowserVersion(chrome, version)
+  }
 
   // kick off
   (function () {
@@ -171,6 +171,6 @@
       .then(getWebKitVersion)
       .then(updatePage)
       .catch(console.error)
-  }());
+  }())
 
-}());
+}())
