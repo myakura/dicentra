@@ -1,9 +1,9 @@
 'use strict'
 
 /**
- * Get WebKit version string from an HTTP response
+ * Get URL of Version.xcconfig at a given revision
  * @param {string} url URL of the changeset
- * @return {string} url for Version.xcconfig at a given revision
+ * @return {string} url URL of Version.xcconfig at a given revision
  */
 const getConfigURL = url => {
   const reChangeset = /^https?:\/\/trac\.webkit\.org\/changeset\/(\d+)$/
@@ -26,7 +26,7 @@ const getConfigURL = url => {
 
 /**
  * Get WebKit version string from Version.xcconfig
- * @param {string} response HTTP response from Version.xcconfig in plain text
+ * @param {string} response HTTP response from Version.xcconfig (in plain text)
  */
 const getWebKitVersion = response => {
   const reVersions = /MAJOR_VERSION = (\d{3});\nMINOR_VERSION = (\d{1,2});/
