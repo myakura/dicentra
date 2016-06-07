@@ -75,6 +75,7 @@ const findBrowserVersion = (browser, version) => {
  */
 const findSafariVersion = version => {
   const safari = [
+    { "product": "9.1", "webkit": "601.05.17" },
     { "product": "9.0", "webkit": "601.01" },
     { "product": "8.0", "webkit": "600.01" },
     { "product": "7.0", "webkit": "537.71" },
