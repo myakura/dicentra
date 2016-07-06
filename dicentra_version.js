@@ -31,8 +31,8 @@ const getConfigURL = url => {
 const getWebKitVersion = response => {
   const reVersions = /MAJOR_VERSION = (\d{3});\nMINOR_VERSION = (\d{1,2});/
   if (reVersions.test(response)) {
-    const versionArray = reVersions.exec(response).slice(1)
-    return `${versionArray[0]}.${('0' + versionArray[1]).slice(-2)}`
+    const [_, major, minor] = reVersions.exec(response)
+    return `${major}.${('0' + minor).slice(-2)}`
   }
   else {
     throw new Error('Cannot obtain version from the response.')
