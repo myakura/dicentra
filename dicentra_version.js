@@ -140,7 +140,14 @@ const updatePage = version => {
 
 // kick off
 fetch(getConfigURL(location.href))
-.then(response => response.text())
+.then(response => {
+  if (response.ok) {
+    return response.text()
+  }
+  else {
+    return Promise.reject(new Error(`${response.status}: ${response.statusText}`))
+  }
+})
 .then(getWebKitVersion)
 .then(updatePage)
 .catch(console.error)
