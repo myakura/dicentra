@@ -136,7 +136,14 @@ const findChromeVersion = version => {
 const updatePage = version => {
   const safariVersion = findSafariVersion(version)
   const chromeVersion = findChromeVersion(version)
-  document.querySelector('h1').textContent += ' (' + version + ' | Safari ' + safariVersion + ((chromeVersion !== 'Nightly') ? ' | Chrome ' + chromeVersion : '') + ')'
+  let versionStrings = [
+    `WebKit ${version}`,
+    `Safari ${safariVersion}`
+  ]
+  if (chromeVersion !== 'Nightly') {
+    versionStrings.push(`Chrome ${chromeVersion}`)
+  }
+  document.querySelector('h1').textContent += ` (${versionStrings.join(' | ')})`
 }
 
 // kick off
