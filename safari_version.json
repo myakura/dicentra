@@ -1,14 +1,16 @@
 [
+    { "product": "10.0",  "webkit": "602.1.50" },
+
     { "product": "9.1.1", "webkit": "601.6.17" },
-    { "product": "9.1", "webkit": "601.5.17" },
+    { "product": "9.1",   "webkit": "601.5.17" },
 
     { "product": "9.0.3", "webkit": "601.4.4" },
     { "product": "9.0.2", "webkit": "601.3.9" },
     { "product": "9.0.1", "webkit": "601.2.7" },
-    { "product": "9.0", "webkit": "601.1.39" },
+    { "product": "9.0",   "webkit": "601.1.39" },
 
     { "product": "8.0.1", "webkit": "600.2.3" },
-    { "product": "8.0", "webkit": "600.1.25" },
+    { "product": "8.0",   "webkit": "600.1.25" },
 
     { "product": "7.0.6", "webkit": "537.78.2" },
     { "product": "7.0.5", "webkit": "537.77.4" },
