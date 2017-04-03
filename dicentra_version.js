@@ -6,7 +6,7 @@
  * @return {string} url URL of Version.xcconfig at a given revision
  */
 const getConfigURL = url => {
-  const reChangeset = /^https?:\/\/trac\.webkit\.org\/changeset\/(\d+)$/
+  const reChangeset = /^https?:\/\/trac\.webkit\.org\/changeset\/(\d+)\/?\w+$/
   if (reChangeset.test(url)) {
     const revision = parseInt(reChangeset.exec(url).slice(1))
     // there wasn't Version.xcconfig before r20261
