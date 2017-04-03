@@ -32,7 +32,7 @@ const getWebKitVersion = response => {
   const reVersions = /MAJOR_VERSION = (\d{3});\nMINOR_VERSION = (\d{1,2});/
   if (reVersions.test(response)) {
     const [_, major, minor] = reVersions.exec(response)
-    return `${major}.${('0' + minor).slice(-2)}`
+    return `${major}.${minor.padStart(2, '0')}`
   }
   else {
     throw new Error('Cannot obtain version from the response.')
