@@ -1,4 +1,11 @@
 [
+    { "product": "11.0.3", "webkit": "604.5.6" },
+    { "product": "11.0.2", "webkit": "604.4.7" },
+    { "product": "11.0.1", "webkit": "604.3.5" },
+    { "product": "11.0",   "webkit": "604.1.38" },
+
+    { "product": "10.1.2", "webkit": "603.3.8" },
+    { "product": "10.1.1", "webkit": "603.2.4" },
     { "product": "10.1",   "webkit": "603.1.30" },
 
     { "product": "10.0.3", "webkit": "602.4.8" },
